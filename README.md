@@ -22,7 +22,7 @@ php vendor/bin/mcc flush
 
 ```
 # Install via composer
-composer require fortrabbit/memcached-cli
+composer require fortrabbit/memcached-cli:^1.0.0-beta
 ```
 
 ```
