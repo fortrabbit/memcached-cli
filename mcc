@@ -11,7 +11,6 @@ $autoloaders = [
 ];
 
 foreach ($autoloaders as $file) {
-    echo $file . PHP_EOL;
     if (file_exists($file)) {
         require $file;
         break;
