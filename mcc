@@ -4,7 +4,20 @@
 define('CLI_NAME', 'Memcached Cli');
 define('CLI_VERSION', '1.0.0-beta1');
 
-require __DIR__ . '/vendor/autoload.php';
+$autoloaders = [
+    __DIR__ . '/vendor/autoload.php',
+    __DIR__ . '/../vendor/autoload.php',
+    __DIR__ . '/../../../vendor/autoload.php'
+];
+
+foreach ($autoloaders as $file) {
+    echo $file . PHP_EOL;
+    if (file_exists($file)) {
+        require $file;
+        break;
+    }
+}
+
 
 use fortabbit\MemcachedCli\Application;
 use fortabbit\MemcachedCli\Commands;
