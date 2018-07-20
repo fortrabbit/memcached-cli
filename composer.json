@@ -4,8 +4,9 @@
   "keywords": [
     "memcached",
     "memcache",
-    "info",
-    "stats"
+    "tools",
+    "stats",
+    "cli"
   ],
   "license": "MIT",
   "type": "library",
@@ -18,5 +19,8 @@
     "psr-4": {
       "fortabbit\\MemcachedCli\\": "src/"
     }
-  }
+  },
+  "bin": [
+    "mcc"
+  ]
 }
