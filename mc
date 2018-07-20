@@ -1,0 +1,64 @@
+#!/usr/bin/env php
+<?php
+
+define('CLI_NAME', 'Memcached Cli');
+define('CLI_VERSION', '0.1.0');
+
+require __DIR__ . '/vendor/autoload.php';
+
+use fortabbit\MemcachedCli\Application;
+use fortabbit\MemcachedCli\Commands;
+use fortabbit\MemcachedCli\ConsoleOutput as FortrabbitConsoleOutput;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+
+$app = new Application(CLI_NAME, CLI_VERSION);
+
+$defaultDescriptions = [
+    '--server' => 'Example: 123-foo.host.com:11222 or 127.0.0.1 (port defaults to 11211)',
+];
+
+// mc delete
+$app->command('delete key [-s|--server=]*', new Commands\Delete())->descriptions("Delete item from cache", $defaultDescriptions + [
+        'key' => 'Cache key']);
+
+// mc flush
+$app->command('flush [-s|--server=]*', new Commands\Flush())->descriptions("Flush entire cache", $defaultDescriptions);
+
+// mc get
+$app->command('get key [-s|--server=]*', new Commands\Get())->descriptions("Get item from cache", $defaultDescriptions + [
+        'key' => 'Cache key']);
+
+// mc faker
+$app->command('faker prefix [-s|--server=]* [--size=] [--count=] [--ttl=]', new Commands\Faker())->descriptions("Create a set fake data", $defaultDescriptions + [
+        'prefix' => 'Cache key prefix',
+        '--size' => 'Number of bytes of the cache item',
+        '--count'=> 'Number of cache items',
+        '--ttl'  => 'Cache ttl in seconds'
+    ]);
+
+// mc search
+$app->command('search pattern [-s|--server=]*', new Commands\Search())->descriptions("Search with a pattern that matchs the key",
+    $defaultDescriptions + [
+        'pattern' => 'Wildcard example: "prefix_key_*" or "*key-middle-part*_suffix"']);
+
+// mc set
+$app->command('set key value [-s|--server=]* [--type=] [--ttl=]', new Commands\Set())->descriptions("Store item in cache",
+    $defaultDescriptions + [
+        'key'    => 'Cache key',
+        'value'  => 'Value you want do store',
+        '--type' => 'Typecast the input string value to bool, int or float.',
+        '--ttl'  => 'Cache ttl in seconds']);
+
+// mc stats
+$app->command('stats [-s|--server=]* [--full]', new Commands\Stats())->descriptions("Show stats and configuration", $defaultDescriptions);
+
+$output = new ConsoleOutput();
+$output->getFormatter()->setStyle('comment', new \Symfony\Component\Console\Formatter\OutputFormatterStyle(null, null, ['bold']));
+
+$app->run(null, new FortrabbitConsoleOutput(
+    new ArgvInput(),
+    $output
+));
+
+
