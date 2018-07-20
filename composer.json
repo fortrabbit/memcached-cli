@@ -1,6 +1,9 @@
 {
   "name": "fortrabbit/memcached-info",
   "description": "Memcached insights & tooling",
+  "version": "1.0.0-beta1",
+  "license": "MIT",
+  "type": "library",
   "keywords": [
     "memcached",
     "memcache",
@@ -8,8 +11,6 @@
     "stats",
     "cli"
   ],
-  "license": "MIT",
-  "type": "library",
   "require": {
     "php": "^7.0",
     "mnapoli/silly": "^1.7",
