@@ -1,5 +1,5 @@
 {
-  "name": "fortrabbit/memcached-info",
+  "name": "fortrabbit/memcached-cli",
   "description": "Memcached insights & tooling",
   "version": "1.0.0-beta1",
   "license": "MIT",
